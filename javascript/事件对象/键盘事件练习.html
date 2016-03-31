@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>打字游戏</title>
+	<style>
+       .box{
+       	   width: 600px;
+       	   height: 600px;
+       	   border:1px solid #ccc;
+       	   position: relative;
+       	   overflow: hidden;
+       }
+       .word{
+       	  display: inline-block;
+       	  background:#c81623;
+       	  opacity: 0.7;
+       	  position: absolute;
+       	  padding: 10px 20px;
+          border-radius: 50%;
+          color:#fff;
+          font-size: 20px;
+       }
+	</style>
+</head>
+<body>
+	<div class="box">
+
+	</div>
+</body>
+<script>
+	var box=document.querySelector('.box');
+	var wordarr={};
+	var shuliang=5;
+	var createword=function(){
+		do{
+			var content=String.fromCharCode(Math.floor(Math.random()*26+97));
+		}while(wordarr[content]);
+		
+		var el=document.createElement('div');
+		el.className='word';
+		el.innerHTML=content;
+		box.appendChild(el);
+		el.style.left=Math.floor(Math.random()*(box.offsetWidth-el.offsetWidth))+'px';
+		var r=Math.floor(Math.random()*255);
+		var g=Math.floor(Math.random()*255);
+		var b=Math.floor(Math.random()*255);
+		el.style.background='rgb('+r+','+g+','+b+')';
+		var ran=Math.ceil(Math.random()*5);
+		wordarr[content]={top:0,yuansu:el,off:ran};
+	}
+	for(var i=0;i<shuliang;i++){
+		createword();
+	}
+	
+
+	var removeword=function(words){
+        var el=wordarr[words].yuansu;
+        el.parentElement.removeChild(el);
+        delete wordarr[words]
+	}
+
+	document.onkeyup=function(e){
+		if(e.keyCode===32){
+			toggleGame();
+			return;
+		}
+		var key=String.fromCharCode(e.keyCode).toLowerCase();
+        if(wordarr[key]){
+        	removeword(key);
+        	createword();
+        }
+	}
+   
+    var a=box.offsetHeight;
+    var diao=function(){
+    	var arr=[];
+    	for(var i in wordarr){
+    		var el=wordarr[i];
+    		var data=wordarr[i].yuansu;
+    		el.top+=el.off;
+    		data.style.top=el.top+'px';
+    		if(data.top>a){
+                arr.push(i);
+    		}
+    	}
+    	if(arr.length){
+    		removeword(arr[i]);
+    		createword();
+    	}
+    }
+    var tId=setInterval(diao,30);
+    var toggleGame=function(){
+    	if(tId){
+    		clearInterval(tId);
+    		tId=null;
+    	}else{
+    		tId=setInterval(diao,30);
+    	}
+    }
+
+
+</script>
+</html>

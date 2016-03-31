@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	  ul,li,h4{
+	  	margin: 0;
+	  	padding:0;
+        list-style: none;
+	  }
+      .zhuce-box{
+      	width:300px;
+      	height: 300px;
+      	border:1px solid #828080;
+      	position: absolute;
+      	left: 50%;
+      	top:50%;
+      	margin-left: -150px;
+      	margin-top: -150px;
+      	padding:20px;
+      }
+      .zhuce-box li{
+      	padding:10px ;
+      	position: relative;
+      }
+      .zhuce-box h4{
+      	display: inline-block;
+      	width: 30%;
+      }
+      
+      .zhuce-box li input{
+      	
+      	display: inline-block;
+      	border:none;
+      	outline: none;
+      	border-bottom: 1px solid #222;
+      	width: 65%;
+      }
+      .warning{
+      	color: #c81623;
+      	font-size: 12px;
+      }
+      .btn{
+          width: 70px;
+          height: 40px;
+          text-align: center;
+          line-height: 40px;
+          background: #ddd;
+          color: #828282;
+          display: inline-block;
+          border-radius: 10%;
+          position: absolute;
+          left: 50%;
+          margin-left: -35px;
+          cursor: default;
+      }
+      .active{
+      	cursor: pointer;
+      	color: #fff;
+      	background: #1284fd;
+      }
+      
+	</style>
+</head>
+<body>
+	<ul class="zhuce-box">
+		<li>
+		    <h4>用户名：</h4>
+			<input type="text" name="username" value="">
+			<span class="tip"></span>
+		</li>
+		<li>
+		    <h4>密码：</h4>
+			<input type="password" name="password" value="">
+			<span class="tip"></span>
+		</li>
+		<li>
+			<h4>确认密码：</h4>
+			<input type="passoword" name="passwordrepeat" value="">
+			<span class="tip"></span>
+		</li>
+		<li class="zhuce">
+			<div class="btn" id="zhuce">注册</div>
+		</li>
+	</ul>
+</body>
+<script>
+	var 
+	users={"dongxiaomin":true,"dengjiayan":true,"lvchangqing":true,"huxinxin":true},
+	state={first:false,second:false,third:false},
+	user=document.getElementsByName('username')[0];
+	pass=document.getElementsByName('password')[0];
+	passR=document.getElementsByName('passwordrepeat')[0];
+	zhuce=document.querySelector('#zhuce');
+    
+    var 
+    check=function(){
+    	if(state.first && state.second && state.third){
+    		zhuce.classList.add('active');
+    		zhuce.setAttribute('active','true');
+    	}else{
+    		zhuce.classList.remove('active');
+    		zhuce.removeAttribute('actve');
+    	}
+    },
+    addW=function(el,info){
+       var span=el.parentElement.querySelector('.tip');
+       span.innerHTML=info;
+       span.classList.add('warning');
+    },
+    removeW=function(el){
+       var span=el.parentElement.querySelector('.tip');
+       span.innerHTML='';
+       span.classList.remove('warning');
+    };
+
+
+	user.onblur=function(){
+       if(users[this.value]){
+       	  addW(this,'该用户名已存在');
+       	  state.first=false;
+       }else{
+       	  removeW(this);
+       	  state.first=true;
+       }
+       check();
+	}
+
+	pass.onblur=function(){
+       if(this.value.length<6){
+       	  addW(this,'字符长度至少为6');
+       	  state.second=false;
+       }else{
+       	  removeW(this);
+       	  state.second=true;
+       }
+       check();
+	}
+
+	passR.onblur=function(){
+       if(this.value==pass.value){
+       	  addW(this,'请重新输入密码');
+       	  state.third=false;
+       }else{
+       	  removeW(this);
+       	  state.third=true;
+       }
+       check();
+	}
+
+	zhuce.onclick=function(){
+		if(this.hasAttribute('active')){
+			zhuce.innerHTML="注册...";
+			setTimeout(function(){
+               location.href="键盘事件.html";
+			},2000);
+		}
+	}
+</script>
+</html>

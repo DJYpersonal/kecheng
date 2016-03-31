@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+       .da{
+           width: 100px;
+           height: 100px;
+           border:1px solid #ccc;
+           float: left;
+           margin:0 3px;
+           opacity: 0.5;
+           transition:all .5s ease;
+       }
+       .zhihui{
+       	width: 50px;
+       	height: 50px;
+       	background: blue;
+       	position: absolute;
+       	top: 0px;
+       	left: 0px;
+       }
+	</style>
+</head>
+<body>
+	<div class="da"></div>
+	<div class="da" style="height:200px"></div>
+	<div class="da"></div>
+	<div class="da" style="width:200px"></div>
+	<div class="da"></div>
+    <div class="zhihui"></div>
+
+</body>
+   <script>
+     //var el=document.getElementById('da');
+     /*el.onmouseover=function(e){
+     	console.log('mousover',e);
+     }
+     el.onmousedown=function(e){
+     	console.log('mousedown',e);
+     }
+     el.onmouseup=function(e){
+     	console.log('mouseup',e);
+     }
+     el.onmousemove=function(e){
+     	console.log('mousemove');
+     }
+     el.onmouseout=function(e){
+     	console.log('mouseout',e);
+     }
+     el.onclick=function(e){
+     	this.className='da selected';
+     }
+     el.ondblclick=function(e){
+     	console.log('dblclick',e);
+     }*/
+     /*var flag=true;
+     el.onclick=function(e){
+        if(e.shiftKey && e.ctrlKey && e.altKey){
+        	this.className=flag?'da selected':'da';
+        	flag=!flag;
+        }
+     }*/
+     /*el.onclick=( function(){
+     	var kaiguan=true;
+     	return function(e){
+     		
+     		if (e.shiftKey && e.ctrlKey && e.altKey){
+     			this.className=kaiguan?'da selected':'da';
+     			kaiguan=!kaiguan;
+     		}
+     	};
+     })()*/
+     
+
+     /*//获取所有类名为'da'的元素
+     var els=document.getElementsByClassName('da');
+     for(var i=0;i<els.length;i++){
+     	els[i].onclick=(function(){
+     		var flag=true;
+     		return function(e){
+     			//按住ctrl键的同时，如果开关是开着的，添加类名'selected',如果不是，则为'da'
+              if(e.ctrlKey){
+              	if(flag){
+              		this.className='da selected';
+              		var r=Math.floor(Math.random()*255);
+              		var g=Math.floor(Math.random()*255);
+              		var b=Math.floor(Math.random()*255);
+                    this.style.backgroundColor='rgb('+r+','+g+','+b+')';
+              		flag=false;
+              	}else{
+              		this.className='da';
+              		this.style.backgroundColor='transparent';
+              		this.style.position='static';
+              		flag=true;
+              	}
+              }
+
+              
+     		}
+     	})()
+     }
+     
+     //对document进行双击事件
+     document.ondblclick=function(e){
+     	//获取所有被点击变色的色块,放到变量arr中
+     	var arr=document.getElementsByClassName('selected');
+     	//判断是否选择色块
+     	if(arr.length===0){
+     		alert("请选择色块");
+     	}else{
+     		//遍历
+     		for (var i=0;i<arr.length;i++){
+     		//将aar[i]定义给一个变量el，方便使用
+     		var el=arr[i];
+     		//将获取的色块的位置改为absolute
+     		el.style.position="absolute";
+     		//获取所选色块的位置
+     		//浏览器的宽度（高度）-所选色块的宽（高）/2+单位
+     		el.style.left=e.clientX-el.offsetWidth/2+'px';
+     		el.style.top=e.clientY-el.offsetHeight/2+'px';
+
+     	}
+     	}
+     	arr.onmousemove=function(){
+     	
+     }
+     	
+     }*/
+     var els=document.getElementsByClassName('da');
+     for(var i=0;i<els.length;i++){
+     	els[i].onclick=(function(){
+     	var flag=true;
+     	return function(e){
+          if(flag){
+          	if(e.ctrlKey){
+          		var r=Math.floor(Math.random()*255);
+          		var g=Math.floor(Math.random()*255);
+          		var b=Math.floor(Math.random()*255);
+          		this.classList.add('selected');
+          		this.style.backgroundColor='rgb('+r+','+g+','+b+')';
+          		flag=false;
+          	}
+          	
+          }else{
+            this.classList.remove('selected');
+            this.style.backgroundColor='transparent';
+            this.style.position='static';
+            flag=true;
+          }
+     	}
+     })();
+     }
+
+     document.ondblclick=function(e){
+     	var arr=document.getElementsByClassName('selected');
+     	for(var i=0;i<arr.length;i++){
+     		var el=arr[i];
+     		el.style.position='absolute';
+     		el.style.left=e.clientX- el.offsetWidth/2+'px';
+     		el.style.top=e.clientY - el.offsetHeight/2+'px';
+     	}
+     }
+
+/*//随鼠标移动
+     document.onmousedown=function(e){
+     	document.onmouseup=function(ev){
+     		var offX = ev.clientX - e.clientX;
+     		var offY = ev.clientY - e.clientY;
+     		var els=document.getElementsByClassName('selected');
+            for(var i=0;i<els.length;i++){
+            	var el=els[i];
+            	el.style.left=el.offsetLeft+offX+'px';
+            	el.style.top=el.offsetTop+offY+'px';
+            }
+     	}
+     }*/
+     var zh=document.getElementsByClassName('zhihui')[0];
+     addEvent(zh,"mousedown",downfn);
+     function downfn(e){
+       var ev=e||window.event;
+       var ox=ev.offsetX||ev.layerX;
+       var oy=ev.offsetY||ev.layerY;
+       console.log(ox,oy)
+       addEvent(document,"mousemove",movefn);
+       function movefn(e){
+       	var ev=e || window.event;
+       	var cx=ev.clientX;
+       	var cy=ev.clientY;
+        var els=document.getElementsByClassName("selected");
+       	zh.style.left=cx-ox+'px';
+       	zh.style.top=cy-oy+'px';
+        for(var i=0,el;i<els.length;i++){
+            el=els[i]; 
+            el.style.left=cx-ox-zh.offsetWidth/2+"px";
+            el.style.top=cy-oy-zh.offsetHeight/2+"px";
+       }
+       addEvent(document,"mouseup",upfn)
+       function upfn(){
+         removeEvent(zh,"mousedown",downfn);
+         removeEvent(document,"mousemove",movefn);
+
+       }
+     }
+}
+
+
+     function addEvent(obj,type,fn){
+     	if(obj.addEventListener){
+     		obj.addEventListener(type,fn,false)
+     	}else if(obj.attachEvent){
+     		obj.attachEvent("on"+type,fn)
+     	}
+     }
+
+
+     function removeEvent(obj,type,fn){
+     	if(obj.removeEventListener){
+     		obj.removeEventListener(type,fn,false)
+     	}else if(obj.detachEvent){
+     		obj.detachEvent("on"+type,fn)
+     	}
+     }
+     
+
+   </script>
+</html> 

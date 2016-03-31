@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+      ul{
+           padding:20px;
+           border:5px solid black;
+      }
+      ul .li{
+      	padding:20px;
+      	border:3px solid #c81623;
+      }
+      ol li{
+      	padding:20px;
+      	border:1px solid blue;
+      }
+      .weizhuang{
+      	padding:30px;
+      	background: #aaa;
+      	position: absolute;
+      	top: 20px;
+      	left: 20px;
+      }
+	</style>
+</head>
+<body>
+	<ul>
+		<li class="li">
+			<ol>
+				<li></li>
+			</ol>
+		</li>
+	</ul>
+	<div class="weizhuang"></div>
+</body>
+<script>
+	var 
+	black=document.querySelector('ul'),
+	red=document.querySelector('.li'),
+	blue=document.querySelector('ol li'),
+	weizhuang=document.getElementsByClassName('weizhuang')[0];
+
+	black.onclick=function(){
+		console.log('black is click')
+	}
+	red.onclick=function(){
+		console.log('red is click')
+	}
+	/*blue.onclick=function(){
+		console.log('blue is click')
+	}*/
+	weizhuang.onclick=function(){
+		console.log('weizhuang is click')
+	}
+
+
+</script>
+</html>

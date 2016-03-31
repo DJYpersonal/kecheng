@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>小例子</title>
+	<style>
+       .big{
+       	  width: 320px;
+       	  height: 320px;
+       	  border:1px solid #444;
+       	  overflow-y:auto;
+       }
+       .small{
+       	  width: 100px;
+       	  height: 100px;
+       	  background: #16c823;
+       	  border:1px solid #eee;
+       	  margin:10px;
+       	  float: left;
+       }
+       .small div{
+       	  width: 35px;
+       	  height: 35px;
+       	  border:1px solid #444;
+       	  margin:5px;
+       	  float: left;
+       }
+       .active{
+       	  background: red;
+       }
+	</style>
+</head>
+<body>
+	<div class="big">
+		<div class="small">
+			<div class="zan">赞</div>
+			<div class="cai">踩</div>
+			<div class="ping">评</div>
+			<div class="bao">报</div>
+		</div>
+	</div>
+</body>
+<script>
+	var big=document.querySelector('.big');
+
+	big.ondblclick=function(){
+		var a=document.createElement('div');
+		console.log(a)
+		a.classList.add('small');
+		a.innerHTML='<div class="zan">赞</div><div class="cai">踩</div><div class="ping">评</div><div class="bao">报</div>';
+		big.appendChild(a);
+	}
+
+	var 
+	zanhandel=function(){
+		this.classList.add('active'); 
+	},
+	caihandel=function(){
+		this.classList.add('active'); 
+	},
+	pinghandel=function(){
+		this.classList.add('active'); 
+	},
+	baohandel=function(){
+		this.classList.add('active'); 
+	};
+
+   big.onclick=function(e){
+   	var aa=e.target;
+   	 if(aa.classList.contains('zan')){
+   	 	zanhandel.call(aa,e)
+   	 }else if(aa.classList.contains('cai')){
+   	 	caihandel.call(aa,e)
+   	 }else if(aa.classList.contains('ping')){
+   	 	pinghandel.call(aa,e)
+   	 }else if(aa.classList.contains('bao')){
+   	 	baohandel.call(aa,e)
+   	 }
+   }
+</script>
+</html>

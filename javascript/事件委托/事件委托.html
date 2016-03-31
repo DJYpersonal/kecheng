@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>微博</title>
+	<style>
+
+		.box{
+			width: 320px;
+			margin:0 auto;
+			position: relative;
+			overflow-y:auto;
+		}
+		.tip{
+			height:30px;
+			background: #eee;
+			color: #c81623;
+			text-align: center;
+			line-height: 30px;
+		}
+		.tip1 p{
+
+			display: inline-block;
+
+		}
+		#text{
+			margin:5px 0;
+			width: 318px;
+			height: 150px;
+			padding:0;
+			outline: none;
+
+		}
+		.fabubtn{
+			display: inline-block;
+			padding:10px 20px;
+			background: #ededed;
+			margin:5px 10px;
+			border-radius: 10%;
+			color:#bbb;
+		}
+		.fabuactive{
+			display: inline-block;
+			padding:10px 20px;
+			background: #26B2DF;
+			margin:5px 10px;
+			border-radius: 10%;
+			color:#eee;
+		}
+		.feeds{
+			padding:20px;
+			border:1px solid #333;
+		}
+		.feed{
+			border:1px solid #333;
+			margin:10px 5px;
+			padding:10px;
+		}
+		.loading{
+			display: inline-block;
+			color:#c81623;
+			font-weight: 600;
+			width: 100px;
+			height: 30px;
+			line-height: 30px;
+			position: absolute;
+			margin: -15px auto;
+			right: 0;
+			left: 0;
+
+		}
+		.zan{
+			color:#999;
+			cursor: pointer;
+		}
+		.zanactive{
+			color:#D10C9B;
+		}
+		.border{
+			border-color:#26B2DF;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="tip">有5条新动态</div>
+		<textarea name="textarea" id="text"></textarea>
+		<div class="tip1">
+			<p>还可以输入</p>
+			<span>40 字</span>
+		</div>
+		<div class="fabubtn">发布</div>
+		<div class="feeds">
+			<div class="loading">
+				加载中......
+			</div>
+			
+		</div>
+	</div>
+</body>
+<script>
+	var shuju=[
+	{name:'张大贱人',content:'学弟学妹们好听话，上课很轻松！',like:200},
+	{name:'小妹妹',content:'今天好开森，我们去吃大餐吧',like:324},
+	];
+	var 
+	load=document.querySelector('.loading'),
+	feeds=document.querySelector('.feeds'),
+	tip=document.querySelector('.tip'),
+	text=document.querySelector('#text'),
+	fabu=document.querySelector('.fabubtn');
+	console.log(fabu)
+
+	setTimeout(function(){
+		load.style.display='none';
+		for(var i=0;i<shuju.length;i++){
+			var el=document.createElement('div');
+			el.classList.add('feed');
+			el.innerHTML='<span>'+shuju[i].name+'</span><p>'+shuju[i].content+'</p><span class="zan">'+'♥ '+shuju[i].like+'</span>';
+			feeds.appendChild(el)
+		}
+	},1000);
+
+	var zanhandel=function(){
+		var num=parseInt(this.innerHTML.slice(1));
+		if(this.classList.contains('zanactive')){
+			this.classList.toggle('zanactive');
+			this.innerHTML='♥ '+(num-1);
+		}else{
+			this.classList.toggle('zanactive');
+			this.innerHTML='♥ '+(num+1);
+		}
+	}
+
+	feeds.onclick=function(e){
+		var aa=e.target;
+
+		if(aa.classList.contains('zan')){
+			zanhandel.call(aa,e)
+		}
+	}
+
+	tip.onclick=function(){
+		var arr=[];
+		for(var i=0,obj;i<5;i++){
+			obj={name:String.fromCharCode(Math.floor(Math.random()*1000+20000)),content:Math.random(),like:Math.floor(Math.random()*10000)};
+			arr.push(obj);
+			var el=document.createElement('div');
+			el.classList.add('feed');
+			el.innerHTML='<span>'+arr[i].name+'</span><p>'+arr[i].content+'</p><span class="zan">'+'♥ '+arr[i].like+'</span>';
+			feeds.insertBefore(el,feeds.firstElementChild);
+		}
+	}
+    
+    text.onfocus=function(){
+    	text.classList.add('border');
+    }
+	text.onblur=function(){
+		text.classList.remove('border');
+		if(this.value.length!==0){
+			fabu.classList.add('fabuactive')
+		}else{
+			fabu.classList.remove('fabuactive')
+		}
+
+	}
+
+	fabu.onclick=function(){
+		if(this.classList.contains('fabuactive')){
+			var bb=document.createElement('div');
+			bb.classList.add('feed');
+			bb.innerHTML='<span>我</span><p>'+text.value+'</p><span class="zan">'+'♥ '+0+'</span>';
+			feeds.insertBefore(bb,feeds.firstElementChild)
+		}
+
+	}
+
+	
+</script>
+</html>
