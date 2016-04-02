@@ -7,6 +7,7 @@
 
 		.box{
 			width: 320px;
+			height: 500px;
 			margin:0 auto;
 			position: relative;
 			overflow-y:auto;
@@ -17,6 +18,11 @@
 			color: #c81623;
 			text-align: center;
 			line-height: 30px;
+
+		}
+		.tip1{
+			float:right;
+			font-size: 14px;
 		}
 		.tip1 p{
 
@@ -85,11 +91,12 @@
 	<div class="box">
 		<div class="tip">有5条新动态</div>
 		<textarea name="textarea" id="text"></textarea>
+		<div class="fabubtn">发布</div>
 		<div class="tip1">
 			<p>还可以输入</p>
-			<span>40 字</span>
+			<span class="num">140 字</span>
 		</div>
-		<div class="fabubtn">发布</div>
+		
 		<div class="feeds">
 			<div class="loading">
 				加载中......
@@ -108,8 +115,9 @@
 	feeds=document.querySelector('.feeds'),
 	tip=document.querySelector('.tip'),
 	text=document.querySelector('#text'),
-	fabu=document.querySelector('.fabubtn');
-	console.log(fabu)
+	fabu=document.querySelector('.fabubtn'),
+	num=document.querySelector('.num'),
+	tip1=document.querySelector('.tip1');
 
 	setTimeout(function(){
 		load.style.display='none';
@@ -157,7 +165,7 @@
     }
 	text.onblur=function(){
 		text.classList.remove('border');
-		if(this.value.length!==0){
+		if(this.value.length<=140){
 			fabu.classList.add('fabuactive')
 		}else{
 			fabu.classList.remove('fabuactive')
@@ -175,6 +183,18 @@
 
 	}
 
+    text.onkeyup=function(){
+	     var number=parseInt(num.innerHTML.slice(0,-1));
+         if(this.value.length<=140){
+            number=number-this.value.length;
+            tip1.innerHTML='<p>还可以输入</p><span class="num"> '+number +' 字</span>';
+            
+         }else{
+         	 number=this.value.length-number;
+             tip1.innerHTML='<p>你已超出</p><span class="num">'+number +'字</span>';
+             tip1.style.color="#c81623";
+         }
+	}
 	
 </script>
 </html>
