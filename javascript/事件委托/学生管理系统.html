@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>学生管理系统</title>
+	<style>
+		.box{
+			width: 600px;
+			border:1px solid #444;
+			padding:10px;
+			text-align: center;
+			margin:0 auto;
+		}
+		.box table{
+			width: 100%;
+			margin:0 auto;
+
+		}
+		.box  tr{
+			display: block;
+			float: left;
+			width: 100%;
+			line-height: 30px;
+			border-bottom: 1px solid #444;
+			text-align: center;
+		}
+		.box td{
+			display: block;
+			float: left;
+			text-align: center;
+			width: 15.66%;
+		}
+		.box .add{
+			padding:5px 200px;
+			margin:10px;
+			background:#EF992F;
+			display: inline-block;
+			cursor: pointer;
+		}
+		.delete,.edit{
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<h1>学生管理系统</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<td>学号</td>
+					<td>姓名</td>
+					<td>性别</td>
+					<td>年龄</td>
+					<td>籍贯</td>
+					<td>操作</td>
+				</tr>
+
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
+		<div class="add">新增</div>
+	</div>
+</body>
+<script>
+
+	if(localStorage.students){
+		var students=JSON.parse(localStorage.students);
+	}else{
+		var students=[
+		{id:1001,name:'邓佳艳',sex:'女',age:'20',jiguan:'山西'},
+		{id:1002,name:'郭雪辉',sex:'男',age:'20',jiguan:'山西'},
+		{id:1003,name:'闫俊涵',sex:'男',age:'20',jiguan:'山西'},
+		{id:1004,name:'董小敏',sex:'女',age:'20',jiguan:'山西'},
+		{id:1005,name:'胡鑫鑫',sex:'女',age:'20',jiguan:'山西'},
+		{id:1006,name:'屈晓宇',sex:'男',age:'20',jiguan:'山西'}
+		];
+		localStorage.setItem('students',JSON.stringify(students));
+	}
+	
+	var thead=document.querySelector('.table thead');
+	var xuanranshuju=function(){
+		for( var i in students){
+			var _d = students[i];
+			var news=document.createElement('tr');
+			news.innerHTML='<td>'+_d.id+'</td><td>'+_d.name+'</td><td>'+_d.sex+'</td><td>'+_d.age+'</td><td>'+_d.jiguan+'</td><td><span class="edit">编辑</span><span>/</span><span class="delete" data-id='+_d.id+'>删除</span></td>';
+			thead.appendChild(news)
+		}
+	}
+	xuanranshuju();
+	var deletestudents=function(id){
+		var _s=[];
+		for(var i in students){
+			var k=students[i];
+			if(k.id!==id){
+				_s.push(k);
+			}
+			
+		}
+		students=_s;
+		localStorage.setItem('students',JSON.stringify(students));
+	}
+
+	var deletehandle=function(e){
+		thead.removeChild(this.parentElement.parentElement);
+		var num=parseInt(this.getAttribute('data-id'));
+		deletestudents(num);
+	}
+
+	thead.onclick=function(e){
+		var el=e.target;
+		if(el.classList.contains('delete')){
+			deletehandle.call(el,e)
+		}
+	}
+
+	
+
+</script>
+</html>

@@ -42,41 +42,39 @@
 	</div>
 </body>
 <script>
-	var big=document.querySelector('.big');
+var big=document.querySelector('.big');
 
-	big.ondblclick=function(){
-		var a=document.createElement('div');
-		console.log(a)
-		a.classList.add('small');
-		a.innerHTML='<div class="zan">赞</div><div class="cai">踩</div><div class="ping">评</div><div class="bao">报</div>';
-		big.appendChild(a);
-	}
+big.ondblclick=function(){
+  var a=document.createElement('div');
+  a.classList.add('small');
+  a.innerHTML='<div class="zan">赞</div><div class="cai">踩</div><div class="ping">评</div><div class="bao">报</div>';
+  big.appendChild(a);
+}
 
-	var 
-	zanhandel=function(){
-		this.classList.add('active'); 
-	},
-	caihandel=function(){
-		this.classList.add('active'); 
-	},
-	pinghandel=function(){
-		this.classList.add('active'); 
-	},
-	baohandel=function(){
-		this.classList.add('active'); 
-	};
-
-   big.onclick=function(e){
-   	var aa=e.target;
-   	 if(aa.classList.contains('zan')){
-   	 	zanhandel.call(aa,e)
-   	 }else if(aa.classList.contains('cai')){
-   	 	caihandel.call(aa,e)
-   	 }else if(aa.classList.contains('ping')){
-   	 	pinghandel.call(aa,e)
-   	 }else if(aa.classList.contains('bao')){
-   	 	baohandel.call(aa,e)
-   	 }
-   }
+var zanred=function(){
+    this.classList.add('active')
+}
+var caired=function(){
+    this.classList.add('active')
+}
+var pingred=function(){
+    this.classList.add('active')
+}
+var  baored=function(){
+    this.classList.add('active')
+}
+big.onclick=function(e){
+  var bb=e.target;
+  if(bb.classList.contains('zan')){
+     zanred.call(bb,e)
+  }else if(bb.classList.contains('cai')){
+     caired.call(bb,e)
+  }else if(bb.classList.contains('ping')){
+     pingred.call(bb,e)
+  }else if(bb.classList.contains('bao')){
+     baored.call(bb,e)
+  }
+}
+	
 </script>
 </html>
