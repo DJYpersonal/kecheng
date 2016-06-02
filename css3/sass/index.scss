@@ -1,0 +1,58 @@
+
+
+%resize{
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+body,ul,li{
+	@extend %resize;
+}
+a{
+	@extend %resize;
+	text-decoration: none;
+}
+
+.container{
+      > li{
+       	  float: left;
+       	  padding:20px;
+       	  border:1px solid #333;
+       	  min-height: 300px;
+       	  min-width: 50px;
+       	  li a{
+       	  	 font-size:20px;
+
+       	  	 color:#111;
+       	  }
+       	  li:hover{
+       	  	  background: #111;
+       	  }
+       }
+       &::after{
+       	  content:'';
+       	  clear:both;
+       	  display: table;
+       }
+}
+
+
+$theme : (
+    'selectors' : #FFDD3A,
+    'css' : #FFA03C,
+    'mainpulation' : #E45B5B,
+    'traversing' : #E678DC,
+    'events' : #6B96D5
+	);
+
+@each $class-name in map_keys($theme){
+	$color : map_get($theme,$class-name);
+	li.#{ $class-name }{
+		background: $color;
+        li a:hover{
+        	color: $color;
+        }
+	}
+}
+
+

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>斗地主</title>
+	<style>
+		ul,li{
+			margin:0;
+			padding:0;
+			list-style: none;
+		}
+		.desk{
+			width: 600px;
+			height: 400px;
+			border:1px solid #222;
+			position: absolute;
+			margin:auto;
+			left:0;
+			right:0;
+			top:-402px;
+			background: #37D32D;
+		}
+		.left{
+			width: 150px;
+			height: 600px;
+			border:1px solid #222;
+			position: absolute;
+			top:40px;
+			left:50%;
+			margin-left: -470px;
+		}
+		.right{
+			width: 150px;
+			height: 600px;
+			border:1px solid #222;
+			position: absolute;
+			top:40px;
+			left:50%;
+			margin-left: 320px;
+		}
+		.center{
+			width: 600px;
+			height: 150px;
+			border:1px solid #222;
+			position: absolute;
+			margin:auto;
+			left:0;
+			right:0;
+			bottom:0;
+			top:464px;
+		}
+		.desk .poker{
+			height: 250px;
+			width: 150px;
+			border:1px solid #222;
+			position: absolute;
+			margin:auto;
+			left:0;
+			right:0;
+			top:0;
+			bottom:0;
+			color:#fff;
+			font-family: "Arial";
+			font-size: 23px;
+			opacity: 0;
+		}
+		.left .poker{
+			width: 80%;
+			height: 31px;
+			border:1px solid #222;
+			box-sizing:border-box;
+			margin-bottom: 2px;
+			color:#fff;
+			font-family: "Arial";
+			font-size: 23px;
+		}
+		.right .poker{
+			width: 80%;
+			height: 31px;
+			border:1px solid #222;
+			right:0; */
+			box-sizing:border-box;
+			margin-bottom: 2px;
+			color:#fff;
+			font-family: "Arial";
+			font-size: 23px;
+		}
+		.center .poker{
+			float: left;
+			width: 31px;
+			height: 80%;
+			border:1px solid #222;
+			box-sizing:border-box;
+			margin-right: 2px;
+			color:#fff;
+			font-family: "Arial";
+			font-size: 23px;
+		}
+		.heitao{
+			background:#444;
+		}
+		.meihua{
+			background: #999;
+		}
+		.hongtao{
+			background: #F50707;
+		}
+		.fangkuai{
+			background: #F3ABAB;
+		}	
+	</style>
+</head>
+<body>
+	<div class="desk"></div>
+	<ul>
+		<li class="left"></li>
+		<li class="right"></li>
+		<li class="center"></li>
+	</ul>
+</body>
+<script src="./jquery工程文件/jquery-1.12.0.js"></script>
+<script>
+	$(function(){
+			//全局变量
+			var 
+			pokers = [],
+			desk = $('.desk'),
+			left = $('.left'),
+			center = $('.center'),
+			right = $('.right');
+
+			//制造扑克
+			var generatePoker = function(){
+				var dict = {};
+				while( pokers.length !== 52){
+					var colors = ['heitao','meihua','hongtao','fangkuai'];
+					var h = colors[ Math.floor(Math.random()*4)];
+					var s = Math.floor(Math.random()*13) + 1;
+					var pai = {huase:h,shuzi:s};
+					if( ! dict[ h+s ]){
+						dict[ h+s ] = true;
+						pokers.push(pai);
+					}	
+				}
+				return pokers;
+			}
+			pokers = generatePoker();
+
+			//放牌
+			var fangpai = function(){
+				var zhuanhuan = {1:'A',2:'2',3:'3',4:'4',5:'5',6:'6',7:'7',8:'8',9:'9',10:'10',11:'J',12:'Q',13:'K'};
+				$(pokers).each(function(i,v){
+					$('<div>')
+					.addClass('poker ' + v.huase)
+					.text(zhuanhuan[v.shuzi])
+					.appendTo(desk)
+					.delay(130*i)
+					.animate({opacity:1},10)
+					.queue(function(){
+						if( i === pokers.length - 1){
+							$(document).on('dblclick',fapai);
+							
+						}
+						$(this).dequeue();
+					})
+				})
+			}
+
+			//发牌
+			var fapai = function(){
+				desk.children().each(function(i,v){
+					var who , off;
+					if( i % 3 === 0){
+						who = left;
+						off = {left:'-=447',opacity:0};
+					}
+					if( i % 3 === 1){
+						who = center;
+						off = {top:'+=300',opacity:0};
+					}else if( i % 3 === 2){
+						who = right;
+						off = {left:'+=447',opacity:0};
+					}
+					$(this)
+					.delay(130*i)
+					.animate(off,200)
+					.queue(function(){
+						$(this)
+						.appendTo(who)
+						.css('opacity',1)
+						.dequeue();
+					})
+				})
+
+			}
+
+			//桌子掉落后开始放牌
+			desk.animate({top:40},600,fangpai);
+	/*
+    //生成扑克
+    var generatePoker = function(){
+    	var dict = {};
+    	while( pokers.length !== 52){
+    		var colors = ['heitao','meihua','hongtao','fangkuai'];
+    		var h = colors[ Math.floor(Math.random()*4)];
+    		var s = Math.floor(Math.random()*13) + 1;
+    		var pai = {huase:h,shuzi:s};
+    		if( ! dict[ h+s ]){
+    			dict[ h+s ] = true;
+    			pokers.push(pai);
+    		}	
+    	}
+    	return pokers;
+     }
+    pokers = generatePoker();
+
+    //放牌
+    var fangpai = function(){
+    	var zhuanhuan = {1:'A',2:'2',3:'3',4:'4',5:'5',6:'6',7:'7',8:'8',9:'9',10:'10',11:'J',12:'Q',13:'K'};
+    	var timeId , i = 0;
+    	timeId = setInterval(function(){
+    		$('<div>')
+    		.addClass('poker ' + pokers[i].huase)
+    		.text( zhuanhuan[pokers[i].shuzi] )
+    		.appendTo(desk);
+    		if( i === pokers.length - 1){
+    			clearInterval(timeId);
+    			$(document).on('dblclick',fapai);
+    		}
+    		i += 1;
+    	},120) 
+    }
+    //发牌
+    var fapai = function(){
+    	var i=0 ;
+    	var timeId; 
+    	timeId = setInterval(function(){
+    		var who;
+    		if( i % 3 === 0){
+    			who = left;
+    		}else if( i % 3 === 1){
+    			who = center;
+    		}else if( i % 3 === 2){
+    			who = right;
+    		}
+    		desk.children().first().appendTo(who);
+
+    		if( i === pokers.length - 1 ){
+    			clearInterval(timeId)
+    		}
+    		i += 1;
+    	},120)
+    }
+    //桌子掉落后再放牌
+    desk
+    .animate({top:40},400)
+    .queue(fangpai);*/
+})   
+
+</script>
+</html>

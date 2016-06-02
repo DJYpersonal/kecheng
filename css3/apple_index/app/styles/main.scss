@@ -1,0 +1,949 @@
+// bower:scss
+// endbower
+/* .hero-unit {
+  margin: 50px auto 0 auto;
+  width: 300px;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 30px;
+  background-color: #eee;
+  border-radius: 6px;
+  padding: 60px;
+  h1 {
+    font-size: 60px;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+}
+
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+ */
+@import 'vars';
+@import 'font';
+@import 'reset';
+@import 'gridsystem';
+
+%clear{
+  content: '';
+  display: block;
+  clear: both;
+}
+%hidetext{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+#globalnav{
+   position: absolute;
+   z-index: 999;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 44px;
+   background: rgba(0,0,0,.7);
+   @media screen and (max-width: $small){
+      height:48px;
+      transition: background 0.35s linear,height 0.35s ease-in;
+   }
+   .gn-content{
+      margin: 0 auto;
+      max-width: 980px;
+      padding: 0 22px;
+      position: relative;
+      @media screen and(max-width: $small){
+         padding: 0;
+         position: absolute;
+         top: 0;
+         width: 100%;
+         height: 100%;
+      }
+   }
+}
+#globalnav{
+   .gn-list{
+      cursor: pointer;
+      margin: 0 -20px;
+      height: 44px;
+      text-align: justify;
+      &::after{
+        content: '';
+        width: 100%;
+        display: inline-block;
+      }
+      @media screen and (max-width: $small){
+        position: absolute;
+        z-index: 2;
+        top: 48px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        padding: 0 48px;
+        height: auto;
+        box-sizing: border-box;
+       /*  -webkit-overflow-scrolling: touch;
+       visibility: hidden;
+       -webkit-transition: visibility 0s linear 1s;
+       transition: visibility 0s linear 1s; */
+       transition: height .6s ease;
+      }
+   }
+
+   .gn-item{
+      display: inline-block;
+      position: relative;
+      height: 44px;
+      vertical-align: top;
+   }
+   .gn-item .gn-link{
+      color: map-get($links,'white');
+      padding: 0 10px;
+      height: 44px;
+      display: block;
+   }
+   .gn-item .gn-title{
+      @extend %hidetext;
+   }
+}
+
+$nav-list : (
+   apple : 20px,
+   mac : 31px,
+   ipad : 30px,
+   iphone : 48px,
+   watch : 44px,
+   tv : 20px,
+   music : 40px,
+   support : 57px,
+   search : 20px,
+   bag : 18px,
+  );
+@each $nav in map-keys($nav-list){
+   .gn-#{$nav} a{
+      width: map-get($nav-list,$nav);
+      background: url($image-path + $nav + '.svg') center center no-repeat;
+      @media screen and (max-width: $small){
+         background: url($image-path + $nav + '_small.svg') center center no-repeat ;
+      }
+   }
+}
+
+#globalnav{
+   .gn-header{
+      display: none;
+      position: absolute;
+      height: 48px;
+      width: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      @media screen and ( max-width: $small){
+         display: block;
+      }
+   }
+   .gn-header .gn-menuicon{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 48px;
+      border-bottom: none;
+   }
+   .gn-header .gn-apple{
+      position: absolute;
+      width: 48px;
+      top: 0;
+      left: 50%;
+      transform: translateX(-24px);
+      text-align: center;
+   }
+   .gn-header .gn-bag{
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: auto;
+   }
+   @media screen and ( max-width: $small){
+      .gn-item{
+         height :48px;
+         width: 100%;
+      }
+      .gn-search{
+         border-bottom-color: silver;
+      }
+      .gn-list .gn-apple{
+         display: none;
+      }
+      .gn-header .gn-bag{
+         transition: transform 0.55s 0.25s ease-out;
+      }
+      .gn-list .gn-bag{
+         display: none;
+      }
+      .gn-apple a{
+         background: url($image-path + 'apple_small.svg') center center no-repeat;
+         width: 21px;
+      }
+      .gn-bag a{
+         background: url($image-path + 'bag_small.svg') center center no-repeat;
+         width: 19px;
+      }
+      .gn-list .gn-item{
+         height: 47px;
+         border-bottom: 1px solid #333;
+         opacity: 0;
+         transform: scale(1.1) translateY(-24px);
+        /*  transition: opacity 0.35s ease-out, transform 0.35s ease-out; */ 
+      }
+      .gn-mac{
+          margin-top: 12px;
+      }
+   }
+}
+#globalnav{
+   .gn-link:hover{
+      opacity: 0.7;
+   }
+   %pos{
+      position: absolute;
+      top: 0;
+      width: 48px;
+      height: 48px;
+   }
+   label{
+      @extend %pos;
+      display: block;
+      cursor: pointer;
+      transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1),transform 0.4s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+      -webkit-tap-highlight-color: transparent;
+      &:hover{
+        opacity: 0.7;
+      }
+   }
+   .gn-wrapper{
+      left: 0;
+      @extend %pos;
+   }
+   .gn-wrapper-top{
+    transition: transform 0.25s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+   }
+   .gn-wrapper-bottom{
+    transition: transform 0.25s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+   }
+   .gn-bread{
+      display: block;
+      width: 17px;
+      height: 1px;
+      background: #fff;
+      position: absolute;
+      left: 16px;
+   }
+   .gn-bread-top{
+      top: 23px;
+      transform: translateY(-3px);
+   }
+   .gn-bread-bottom{
+      bottom: 23px;
+      transform: translateY(3px);
+   }
+}
+#gn-menustate{
+  display: none;
+  &:checked {
+    ~#globalnav label{
+      transform: rotate(90deg);
+    }
+    ~#globalnav .gn-wrapper-top{
+      transition: transform 0.25s 0.2s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+      transform: rotate(45deg);
+    }
+    ~#globalnav .gn-bread-top{
+      transform: translateY(0);
+    }
+    ~#globalnav .gn-wrapper-bottom{
+      transition: transform 0.25s 0.2s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+      transform: rotate(-45deg);
+    }
+    ~#globalnav .gn-bread-bottom{
+      transform: translateY(0);
+      transition: transform 0.2s;
+    }
+    ~#globalnav .gn-header .gn-bag{
+       transform: translateX(200%);
+       transition: transform 0.55s 0.25s ease-out;
+    }
+    
+    @media screen and (max-width: $small){
+      ~ #globalnav .gn-list{
+        visibility: visible;
+        transition-delay: 0s;
+       
+      }
+      ~ #globalnav .gn-list .gn-item{
+         opacity: 1;
+         transform: none;
+      }
+      ~ #globalnav{
+        background: #000;
+        height: 100%;
+        transition: background 0.35s linear,height 0.35s ease-in 200ms;
+      }
+    }
+     @for $i from 1 through 8{
+       ~ #globalnav .gn-list li:nth-child(#{$i}){
+          transition: transform .3s $i*0.03s ease;
+       }
+    }
+  }
+}
+
+
+.aside{
+  margin: 0 auto;
+  border: 2px solid #fff;
+  max-width: 2560px;
+  position: relative;
+  &::after{
+    @extend %clear;
+  }
+  span{
+    @extend %hidetext;
+  }
+}
+.aside li{
+  height: 200px;
+  float: left;
+  margin-bottom: 2px;
+  
+}
+.aside a{
+  display: block;
+  height: 200px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 360px 200px;
+  border-right: 2px solid #fff;
+  box-sizing : border-box;
+  @media screen and (max-width: $medium){
+    background-size : 640px 200px;
+  }
+  @media screen and (max-width: $small){
+    background-size : 736px 200px;
+  }
+}
+
+.aside li:nth-child(4) a{
+  border-right: none;
+}
+@media screen and (max-width: $medium){
+  .aside li:nth-child(2n) a{
+    border-right: none;
+  }
+}
+@media screen and (max-width: $small){
+  .aside li a{
+    border-right: none;
+  }
+}
+
+$items : iphone_6s,apple_tv,macbook,accessories;
+@for $i from 1 through 4{
+  .aside li:nth-child(#{$i}) a{
+    background-image: url($image-path + nth($items,$i)+'_large.jpg');
+    @media screen and (max-width: $medium){
+      background-image: url($image-path + nth($items,$i)+'_medium.jpg');
+    }
+    @media screen and (max-width: $small){
+      background-image: url($image-path + nth($items,$i)+'_small.jpg');
+    }
+  }
+}
+
+
+a{
+  color: #08c;
+}
+.redcross{
+   text-align: center;
+   a:hover{
+       text-decoration: underline;
+    }
+   .redcross-banner{
+      position: relative;
+      display: inline-block;
+      padding: 20px 0;
+      border-bottom: 1px solid #d6d6d6;
+    }
+    .redcross-banner .redcross-logo{
+         background-repeat: no-repeat;
+         background-size: 179px 44px;
+         height: 44px;
+         width: 179px;
+         background-image: url("../images/redcross_banner_large.jpg");
+         position: absolute;
+         top: 13px;
+         span{
+            @extend %hidetext;
+         }
+         @media screen and (max-width: $small){
+             position: relative;
+             top: auto;
+             margin: 0 auto 4px;
+         }
+      }
+    .redcross-banner  .redcross-copy{
+         margin-left: 202px;
+         display: inline-block;
+         border-left: 1px solid #d6d6d6;
+         padding-left: 22px;
+         @media screen and (max-width: $small){
+             margin-left: 0;
+             border-left: 0;
+             padding-left: 0;
+             display: block;
+         }
+    }
+    .redcross-banner .redcross-link{
+         margin-left: 4px;
+         @media screen and (max-width: $small){
+            display: block;
+            margin-left: 0;
+         }
+    }
+   .exchange{
+      padding-left: 40px;
+   }
+}
+.exchange{
+    margin: 0 auto;
+    padding: 20px 0;
+    text-align: center;
+}
+.more::after{
+    content: "";
+    display: inline-block;
+    color: inherit;
+    font-family: "appleicons normal";
+    font-style: normal;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: 1;
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+    top: 0;
+    padding-left: 0.3em;
+}
+
+
+#footer{
+    font-size: 12px;
+    /* height: 368px; */
+    line-height: 1.66667;
+    font-weight: 400;
+    letter-spacing: normal;
+    background-color: #f2f2f2;
+    color: #666;
+    min-width: 1024px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    .ac-gf-content{
+       height: 368px;
+       margin: 0 auto;
+       padding: 0 22px;
+       max-width: 980px;
+       h2{
+          @extend %hidetext;
+       }
+       @media screen and (max-width: $small){
+          padding: 0 16px;
+       }
+    }
+}
+@media screen and (max-width: 1024px){
+   #footer{
+      min-width: 320px;
+   }
+}
+
+#footer .directory{
+    font-size: 12px;
+    line-height: 1.66667;
+    font-weight: 400;
+    letter-spacing: normal;
+    position: relative;
+    z-index: 1;
+    padding-top: 32px;
+    height: 240px;
+    &::before{
+      content:'';
+      display: table;
+    }
+    @media screen and (max-width: $small){
+       font-size: 12px;
+       line-height: 2.5;
+       font-weight: 400;
+       letter-spacing: normal;
+    }
+}
+#footer{
+   %col{
+      position: relative;
+      z-index: 1;
+      min-height: 2px;
+      margin: 0;
+      padding: 0;
+      float: left;
+   }
+   .col{
+      width: 20%;
+      @extend %col;
+      @media screen and (max-width: $small){
+         width: 100%;
+      }
+    }
+   .col-section{
+      width: 100%;
+      /* pointer-events: none; */
+      @extend %col;
+      @media screen and (max-width: $small){
+         border-bottom: 1px solid #e3e3e3;
+         overflow: hidden;
+      }
+   }
+  h3{
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 600;
+    letter-spacing: normal;
+    color: #333;
+    margin: 0;
+    height: 20px;
+    cursor: pointer;
+    @media screen and (max-width: $small){
+       font-size: 14px;
+       line-height: 2.78571;
+       font-weight: 400;
+       letter-spacing: normal;
+    }
+  }
+   .col-list{
+      margin-right: 20px;
+   }
+   .col-item{
+      display: block;
+      pointer-events: auto;
+   }
+   a{
+      color: map-get($links,'hui');
+   }
+   a:hover{
+      color:  map-get($links,'hui-H');
+      text-decoration: underline;
+   }
+}
+#footer .col-section ~ .col-section {
+    padding-top: 20px;
+    @media screen and (max-width: $small){
+       padding-top: 0;
+    }
+}
+#footer input{
+  display: none;
+}
+#footer .col-link{
+  @media screen and ( max-width: $small){
+     outline-offset: -6px;
+     padding: 0 14px;
+     display: block;
+  }
+}
+
+  @media screen and (max-width: $small){
+    .ac-gf-content .col-section ul{
+      display: none;
+    }
+
+}
+  .col h3{
+    position: relative;
+    @media screen and (max-width: $small){
+      &::after{
+        content: '+';
+        float: right;
+        margin-right: 8px;
+        font-size: 16px;
+        transition: transform .3s ease;
+      }
+  }
+}
+
+$ids : ( shop,store,education,business,account,values,about );
+@each $idname in $ids{
+ @media screen and (max-width: $small){
+    ##{$idname}{
+      &:checked + .col-section ul{
+         display: block;
+         margin: 0;
+         overflow: hidden;
+         padding-bottom: 16px;
+         top: 100%;
+         left: 0;
+         width: 100%;
+      }
+      &:checked + .col-section h3::after{
+         transform: rotateZ(45deg);
+      }
+    }
+  }
+}
+
+#footer{
+   .xuke{
+      color: #999;
+      padding: 20px 0 24px;
+   }
+   .shop{
+      max-height: 9999px;
+      margin-bottom: 6px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #e3e3e3;
+      a{
+        color: map-get($links,'blue');
+      }
+      a:hover{
+        color:  map-get($links,'hui-H');
+      }
+   }
+   .locale{
+      float: right;
+      white-space: nowrap;
+      @media screen and (max-width: $small){
+         float: none;
+         position: relative;
+         padding-bottom: 13px;
+      }
+   }
+   .locale-link{
+      display: inline;
+   }
+   .locale-flag{
+      background-repeat: no-repeat;
+      background-size: 16px 16px;
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background-image: url("../images/16.png");
+      padding-right: 5px;
+      background-position: left center;
+      cursor: pointer;
+      float: left;
+      margin-top: 1px;
+   }
+   .legal::before{
+      content: '';
+      display: table;
+   }
+   .legal-copyright{
+      margin-right: 26px;
+      float: left;
+   }
+   .legal-links{
+      margin-right: 26px;
+      float: left;
+   }
+   .legal-link{
+      border-right: 1px solid #d6d6d6;
+      margin-right: 10px;
+      padding-right: 12px;
+      white-space: nowrap;
+   }
+   .legal-link:last-child{
+      border: none;
+      margin: 0;
+      padding: 0;
+   }
+} 
+
+
+.gallery{
+    position: relative;
+    height: 78%;
+    min-height: 650px;
+    overflow: hidden;
+    margin-top: -46px;
+    .dotnav{
+       bottom: 2%;
+       position: absolute;
+       left: 0;
+       width: 100%;
+       text-align: center;
+       z-index: 2;
+       height: 26px;
+    }
+    .dotnav ul{
+       display: inline-block;
+    }
+    .dotnav li{
+       list-style: none;
+       margin: 0 10px;
+       width: 8px;
+       height: 8px;
+       float: left;
+       position: relative;
+    }
+    .dotnav-item{
+       top: 0;
+       left: 0;
+       width: 8px;
+       height: 8px;
+       outline: none;
+       position: absolute;
+       border-radius: 50%;
+       background-color: #999;
+       box-sizing: content-box;
+       padding: 0;
+       overflow: hidden;
+       text-indent: 100%;
+       white-space: nowrap;
+    }
+    .dotnav-item.current{
+       top: -1px;
+       left: -1px;
+       width: 8px;
+       height: 8px;
+       border-style: solid;
+       border-width: 1px;
+       border-color: #08c;
+       background-color: transparent;
+       cursor: default;
+    }
+}
+.gallery{
+   .button-arrow{
+      z-index: 2; 
+      line-height: 128px;
+      margin-top: -64px;
+      top: 50%;
+      width: 67px;
+      height: 128px;
+      position: absolute;
+      text-align: center;
+      overflow: hidden;
+      color: #666;
+      background-color: transparent;
+      border-radius: 4px;
+      display: block;
+      font-size: 72px;
+      font-style: normal;
+      font-weight: 200;
+      opacity: .6;
+      transition: 250ms opacity linear, 250ms color linear, 250ms background-color linear;
+   }
+   .previous{
+      left: 18px;
+      &::after{
+        content: '';
+        font-family: 'appleicons normal';
+        display: inline-block;
+      }
+   }
+   .next{
+      right: 18px;
+      &::after{
+        content: '';
+        font-family: 'appleicons normal';
+        display: inline-block;
+      }
+   }
+}
+
+
+.gallery .hero-item{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    .hero-content{
+       position: absolute;
+       top: 0;
+       left: 0;
+       bottom: auto;
+       right: auto;
+       margin: 0;
+       padding: 0;
+       width: 100%;
+       height: 100%;
+       overflow: hidden;
+    }
+    .hero-content .backing-link{
+       display: block;
+       position: absolute;
+       top: 0;
+       left: 0;
+       bottom: auto;
+       right: auto;
+       margin: 0;
+       padding: 0;
+       width: 100%;
+       height: 100%;
+       opacity: 0;
+    }
+    .hero-content .copy{
+       position: absolute;
+       left: 50%;
+       top: -50%;
+       vertical-align: middle;
+       height: 100%;
+       &::before{
+          content: ' ';
+          display: inline-block;
+          height: 100%;
+          width: 0px;
+          font-size: 0;
+          margin: 0 -1000px;
+          padding: 0;
+          vertical-align: middle;
+       }
+       &::after{
+          content: ' ';
+          display: inline-block;
+          height: 100%;
+          width: 0px;
+          font-size: 0;
+          margin: 0 -1000px;
+          padding: 0;
+          vertical-align: middle;
+       }
+
+       @media screen and (max-height: $height) and (max-width: $large) and (min-width: $medium){
+           width: 340px;
+       }
+    }
+    .hero-content .copy .links a:hover{
+        color: #000;
+    }
+    .hero-content .copy .links span:hover{
+        color: #000;
+    }
+    .hero-content .copy-inner{
+       vertical-align: middle;
+       top: 50%;
+       left: 0%;
+       padding-left: 270px;
+       margin-left: -216px;
+      /*  position: relative;
+      display: inline-block; */
+       width: 100%;
+       height: auto;
+    }
+    .hero-content .copy-inner *{
+       text-align: center;
+       font-family: 'myriad thin';
+    }
+    .hero-content .copy-inner .product-pro{
+        overflow: hidden;
+        background-repeat: no-repeat;
+        margin-bottom: 0.25em;
+        background-size: 174px 39px;
+        @media screen and (max-height: $height) and (max-width: $large) and (min-width: $medium){
+           height: 39px;
+           width: 174px;
+           margin-left: auto;
+           margin-right: auto;
+           background-image: url($image-path + 'iphone_se_medium.png');
+           font-size: 64px;
+           line-height: 1.0625;
+           font-weight: 200;
+       }
+      span{
+          visibility: hidden;
+      }
+    }
+    .hero-content .copy-inner .product-text{
+       margin-top: 0;
+       margin-bottom: 0.5em;
+       @media screen and (max-height: $height) and (max-width: $large) and (min-width: $medium){
+           font-size: 32px;
+           line-height: 1.125;
+           font-weight: 300;
+           letter-spacing: normal;
+       } 
+    }
+    .hero-content .links{
+       font-size: 24px;
+       line-height: 1.3375;
+       font-weight: 300;
+       letter-spacing: normal;
+    }
+    .hero-content .links li{
+       display: inline-block;
+       margin-left: 0.35em;
+       margin-right: 0.35em;
+       margin-bottom: 0.2em;
+    }
+    .hero-content .icon{
+       &::after{
+          position: relative;
+          display: inline-block;
+          padding-left: 0.3em;
+          font-family: 'appleicons normal';
+       }
+    }
+    .hero-content .icon-right::after{
+         content: '';
+    }
+    .hero-content .icon-play::after{
+        content: '';
+    }
+    .hero-content .hero-wrapper{
+       position: absolute;
+       top: 0;
+       right: 0;
+       bottom: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+    }
+    .hero-content .hero-image{
+        @media screen and (max-height: $height) and (max-width: $large) and (min-width: $medium){
+           position: absolute;
+           bottom: auto;
+           right: auto;
+           left: 0;
+           top: 0;
+           min-width: 203px;
+           min-height: 228px;
+           width: 50%;
+           height: 50%;
+       }
+    }
+    .hero-content .hero-image .image-inner{
+        @media screen and (max-height: $height) and (max-width: $large) and (min-width: $medium){
+            background-image: url($image-path + "iphone_se_medium.jpg");
+            background-size: 580px 517px;
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            width: 580px;
+            height: 517px;
+            overflow: visible;
+            position: absolute;
+            top: auto;
+            left: auto;
+            bottom: -290px;
+            right: -60px;
+        }
+    }
+}

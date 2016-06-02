@@ -1,0 +1,178 @@
+body,ul,li,h1,h2,h3,h4,h5,h6,p{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+div{
+	display: block;
+}
+
+%clear{
+	content: '';
+	display: block;
+	clear: both;
+}
+%hidetext{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+$small : 735px;
+$medium : 1068px;
+
+.aside{
+	margin: 0 auto;
+	border: 2px solid #fff;
+	max-width: 2560px;
+	&::after{
+		@extend %clear;
+	}
+	span{
+		@extend %hidetext;
+	}
+}
+.aside li{
+	height: 200px;
+	float: left;
+	width: 25%;
+	margin-bottom: 2px;
+	@media screen and (max-width: $medium){
+		width : 50%;
+	}
+	@media screen and (max-width: $small){
+		width : 100%;
+	}
+}
+.aside a{
+	display: block;
+	height: 200px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 360px 200px;
+	border-right: 2px solid #fff;
+	box-sizing : border-box;
+	@media screen and (max-width: $medium){
+		background-size : 640px 200px;
+	}
+	@media screen and (max-width: $small){
+		background-size : 736px 200px;
+	}
+}
+
+.aside li:nth-child(4) a{
+	border-right: none;
+}
+@media screen and (max-width: $medium){
+	.aside li:nth-child(2n) a{
+		border-right: none;
+	}
+}
+@media screen and (max-width: $small){
+	.aside li a{
+		border-right: none;
+	}
+}
+
+$items : iphone_6s,apple_tv,macbook,accessories;
+@for $i from 1 through 4{
+	.aside li:nth-child(#{$i}) a{
+		background-image: url('./images/'+nth($items,$i)+'_large.jpg');
+		@media screen and (max-width: $medium){
+			background-image: url('./images/'+nth($items,$i)+'_medium.jpg');
+		}
+		@media screen and (max-width: $small){
+			background-image: url('./images/'+nth($items,$i)+'_small.jpg');
+		}
+	}
+
+}
+
+
+.products{
+	max-width: 2560px;
+	min-height: 200px;
+	border: 1px solid #333;
+	margin-top: 5px;
+	&::after{
+		@extend %clear;
+	}
+	li{
+		float: left;
+		border: 1px solid red;
+		box-sizing : border-box;
+		height: 198px;
+		display: block;
+	}
+}
+
+%public{
+	float: left;
+	position: relative;
+}
+$rules : (
+	'large' : 1600px,
+	'medium' : 1068px,
+	'small' : 735px,
+	);
+$num : 12;
+@each $rule in map-keys($rules){
+	@for $i from 1 through $num{
+		.#{$rule}-#{$i}{
+			@extend %public;
+		}
+	}
+}
+@each $rule in map-keys($rules){
+	@media screen and (max-width: map-get($rules,$rule)){
+		@for $i from 1 through $num{
+			.#{$rule}-#{$i}{
+				width: percentage($i/$num);
+			}
+		}
+	}
+}
+@for $i from 1 through $num{
+	.pull-#{$i}{
+		left: percentage($i/$num);
+	}
+}
+@for $i from 1 through $num{
+	.push-#{$i}{
+		right: percentage($i/$num);
+	}
+}
+@for $i from 5 through 10{
+	.with-#{$i}-rol{
+		width: 960px;
+		margin:0 auto;
+		height: 100px;
+		border: 1px solid #333;
+		margin:5px;
+		&::after{
+			@extend %clear;
+		}
+	}
+}
+@for $i from 5 through 10{
+	.with-#{$i}-rol .rol{
+		border:1px solid #333;
+		height: 100px;
+		box-sizing : border-box;
+		@extend %public;
+		width: percentage(1/$i);
+	}
+}
+@media screen and (max-width: $small){
+	@for $i from 5 through 10{
+	.with-#{$i}-rol .rol{
+		width: 100%;
+	}
+}
+}
+

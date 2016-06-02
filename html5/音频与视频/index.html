@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+         .box{
+         	height: 48px;
+         	width: 298px;
+         	border: 1px solid #222;
+         	margin-top: 20px;
+         	position: relative;
+         }
+         .inner{
+         	background: green;
+         	height: 48px;
+         	position: absolute;
+         	bottom: 0;
+         }
+	</style> 
+</head>
+<body>
+	<audio controls="true" src="./02.长安.MP3"></audio>
+	<div class="box">
+		<div class="inner"></div>
+	</div>
+</body>
+<script src="./jquery-1.12.0.js"></script>
+<script>
+var audio = document.getElementsByTagName('audio')[0];
+var box = document.querySelector('.box');
+var bar = document.querySelector('.inner');
+audio.ontimeupdate = function(){
+	
+}
+</script>
+</html>

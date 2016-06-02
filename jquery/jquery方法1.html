@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	body{
+		height: 1000px;
+	}
+      ul{
+      	padding:40px;
+      	border:1px solid black;
+      	position: relative;
+      	height: 200px;
+      	overflow: auto;
+      }
+      li{
+      	padding:20px;
+      	border:1px solid black;
+      	margin:10px;
+      }
+	</style>
+</head>
+<body>
+	<ul id="test" class="test">
+		<li class="item"></li>
+		<li class="item"></li>
+		<li class="item"></li>
+		<li class="item"></li>
+		<li class="item"></li>
+		<li class="item"></li>
+		<li class="item"></li>
+		<li class="item"></li>
+	</ul>
+	<ul id="test2">
+		<li>1</li>
+	</ul>
+	<input type="checkbox">
+	<input type="text">
+	<ul id = "ul">
+		<li>
+		男<input type="radio" name="sex">
+		女<input type="radio" name="sex">
+		</li>
+        <li>
+        男<input type="radio" name="sex">
+        女<input type="radio" name="sex">
+        </li>
+        <li>
+        男<input type="radio" name="sex">
+        女<input type="radio" name="sex">
+        </li>
+	</ul>
+</body>
+<script src = "./jquery工程文件/jquery-1.12.0.js"></script>
+<script>
+	$('#ul li input').prop('name',function(i){
+		return 'sex' + Math.floor(i/2)
+	})
+	
+	var people = [
+     {name:'aa',sex:'man'},
+     {name:'bb',sex:'woman'},
+     {name:'bb',sex:'woman'},
+	];
+	/*$('#ul li input:even').prop('checked',function(i){
+		if(people[i].sex === 'man'){
+			return true
+		}
+		
+	})
+	$('#ul li input:odd').prop('checked',function(i){
+		if(people[i].sex === 'woman'){
+			return true
+		}
+		})
+		*/
+	$('#ul li').each(function(i){
+		if(people[i].sex === 'man'){
+			$(this).find('input:first').prop('checked',true);
+		}else{
+			$(this).find('input:last').prop('checked',true);
+		}
+	})
+	
+
+</script>
+</html>

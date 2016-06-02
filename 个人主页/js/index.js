@@ -1,0 +1,8 @@
+$(function(){
+	$(function($){
+         	$('#fullpage').fullpage({
+         		 
+         	});
+         })
+})
+         

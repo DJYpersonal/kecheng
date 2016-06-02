@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!--
+	如果不加这个标签，手机浏览器打开这个页面的时候，会按照手机的实际像素去渲染页面中的内容，这就会导致所有的东西都很小;
+	如果加上这个标签，手机浏览器会按照逻辑像素去渲染页面内容;
+	这样我们就可以根据不同手机的逻辑像素去布局-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>手机联系人</title>
+	<link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+
+	<div class="header">
+		<span class="back">❰</span>
+		<ul>
+			<li><span class="refresh">❁</span></li>
+			<li><span class="add">✚</span></li>
+		</ul>
+	</div>
+	<div class="container">
+		<div class="container-inner">
+			<div class="findlist">
+				<ul>
+				</ul>
+			</div>
+			<dl class="contacts">
+
+			</dl>
+		</div>
+		
+		
+	</div>
+	<div class="tips position-center" >
+		<div class="card position-center" >
+			<div class="head">
+				<div class="back">❰</div>
+				<div class="edit">✒</div>
+			</div>
+			<ul>
+				<li class="picture"></li>
+				<li class="name" data-role="name"></li>
+				<li class="phone" data-role="phone"></li>
+			</ul>
+			
+			<ul class="button">
+				<li class="cancle">取消</li>
+				<li class="save">保存</li>
+			</ul>
+
+		</div>
+	</div>
+</body>
+<script src="./js/index.js"></script>
+</html>

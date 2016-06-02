@@ -1,0 +1,143 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>扫雷</title>
+	<link rel="stylesheet" href="saolei.css">
+</head>
+<body>
+  <div class="box">
+    <div id="sence"></div>
+    <div class="bottom">
+      <div class="list timer">
+        <img src="image/timer.png" alt="">
+        <span>00:00</span>
+      </div>
+      <div class="list start">
+        <img src="image/start.png" alt="">
+      </div>
+      <div class="list stop">
+        <img src="image/stop.png" alt="">
+      </div>
+      <div class="list leinum">
+        <img src="image/lei.png" alt="">
+        <span>0</span>
+      </div>
+      
+    </div>
+  </div>
+	
+  
+</body>
+<script src="./jquery工程文件/jquery-1.12.0.js"></script>
+<script>
+
+  $(document).on('contextmenu',false);
+   var mousedownHandler = function(e){
+       if( e.which === 1){
+       	   $.proxy(left,this)(e);
+       }else if(e.which === 3){
+       	   $.proxy(right,this)(e);
+       }
+	}
+	var xy2id = function(x,y){
+		return x + '-' + y;
+	}
+   var jisuan = function(x,y){
+      var num = 0;
+      if($('#' + xy2id(x,y-1)).is('.lei')){ num ++ };
+      if($('#' + xy2id(x,y+1)).is('.lei')){ num ++ };
+      if($('#' + xy2id(x-1,y-1)).is('.lei')){ num ++ };
+      if($('#' + xy2id(x-1,y)).is('.lei')){ num ++ };
+      if($('#' + xy2id(x-1,y+1)).is('.lei')){ num ++ };
+      if($('#' + xy2id(x+1,y-1)).is('.lei')){ num ++ };
+      if($('#' + xy2id(x+1,y)).is('.lei')){ num ++ };
+      if($('#' + xy2id(x+1,y+1)).is('.lei')){ num ++ };
+      return num;
+   }
+   var restart = function(){
+   	    $('<div>')
+   	    .addClass('restart')
+   	    .text('是否重新开始?')
+   	    .append('<div class = "aa">是</div><div class = "bb">否</div>')
+   	    .appendTo('#sence');
+   	    $('.aa').on('click',function(){
+   	    	senceHZ();
+          $('.timer span').text('00:00');
+   	    })
+   	    $('.bb').on('click',function(e){
+            $('.restart').remove();
+   	    })
+   	    //
+   }
+   var left = function(e){
+   	  if( $(this).is('.biaoji')){
+   	  	return;
+   	  }else if( e.data.lei){
+   	  	
+   	    $('.lei').css('backgroundImage','url("./image/lei1.png")');
+   	    alert('炸死了！');
+   	    restart();
+        clearInterval(times);
+   	  }else {
+   	  	 $(this).text(jisuan(e.data.x,e.data.y)).addClass('tip');
+   	  }
+      $('.leinum span').text($('.lei').length);
+   }
+	
+	var right = function(e){
+       if( $(this).is('.tip')){
+           return;
+       }
+       $(this).toggleClass('biaoji');
+       if($('.biaoji').length === $('.lei').length){
+       	 if($('.biaoji.lei').length === $('.lei').length){
+       	 	alert('你真棒');
+       	 	restart();
+          clearInterval(times);
+       	 }
+       }
+       if($('.biaoji').length + 1){
+         $('.leinum span').text($('.lei').length - $('.biaoji').length);
+       }
+	}
+	var senceHZ = function(){
+        $('#sence').empty();
+		for( var i=0 ; i<10; i++){
+			for( var j=0 ; j<10; j++){
+				var isLei = Math.random() > 0.9;
+				$('<div>')
+				.attr('id',xy2id(i,j))
+				.addClass(function(){
+					return 'block ' + (isLei ? 'lei' : '') ;
+				})
+				.on('mousedown',{x:i,y:j,lei:isLei },mousedownHandler)
+				.appendTo('#sence');
+			}
+		}
+
+	}
+	senceHZ()
+
+
+  var timeIndex = 0;
+  var times;
+    $(".start").first().click(function(){   //点击btnl触发setTime()函数
+     setTime();
+       times = setInterval(setTime, 1000);    //每隔1秒执行函数
+    });
+   $(".stop").click(function(){
+      clearInterval(times);    //清除对函数的调用
+   });
+  function setTime(){
+     var minutes = parseInt((timeIndex % 3600) / 60);    // 计算分 
+     var seconds = parseInt(timeIndex % 60);    // 计算秒  
+     minutes = minutes < 10 ? "0" + minutes : minutes;
+     seconds = seconds < 10 ? "0" + seconds : seconds;
+    $(".timer span").text(minutes + ":" + seconds);
+    timeIndex++;
+  }
+
+
+</script>
+</html>

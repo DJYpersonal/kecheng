@@ -1,0 +1,39 @@
+@font-face {
+  font-family: "myriad normal";
+  src: local("myriad-set-pro_text"), url("../fonts/myriad-set-pro_text.woff") format("woff"), url("../fonts/myriad-set-pro_text.eot") format("eot"), url("../fonts/myriad-set-pro_text.ttf") format("ttf"), url("../fonts/myriad-set-pro_text.svg") format("svg");
+}
+
+@font-face {
+  font-family: "myriad bold";
+  src: local("myriad-set-pro_semibold"), url("../fonts/myriad-set-pro_semibold.woff") format("woff"), url("../fonts/myriad-set-pro_semibold.eot") format("eot"), url("../fonts/myriad-set-pro_semibold.ttf") format("ttf"), url("../fonts/myriad-set-pro_semibold.svg") format("svg");
+}
+
+@font-face {
+  font-family: "myriad thin";
+  src: local("myriad-set-pro_thin"), url("../fonts/myriad-set-pro_thin.woff") format("woff"), url("../fonts/myriad-set-pro_thin.eot") format("eot"), url("../fonts/myriad-set-pro_thin.ttf") format("ttf"), url("../fonts/myriad-set-pro_thin.svg") format("svg");
+}
+
+@font-face {
+  font-family: "myriad extrathin";
+  src: local("myriad-set-pro_extrathin"), url("../fonts/myriad-set-pro_extrathin.woff") format("woff"), url("../fonts/myriad-set-pro_extrathin.eot") format("eot"), url("../fonts/myriad-set-pro_extrathin.ttf") format("ttf"), url("../fonts/myriad-set-pro_extrathin.svg") format("svg");
+}
+
+body {
+  font-size: 70px;
+}
+
+span {
+  font-family: 'myriad normal';
+}
+
+p:nth-of-type(1) {
+  font-family: 'myriad bold';
+}
+
+p:nth-of-type(2) {
+  font-family: 'myriad thin';
+}
+
+p:nth-of-type(3) {
+  font-family: 'myriad extrathin';
+}

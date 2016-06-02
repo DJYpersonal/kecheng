@@ -1,0 +1,32 @@
+%resize{
+	margin: 0;
+	padding: 0;
+}
+body{
+	@extend %resize;
+	font-family: "Microsoft Yahei",verdana;
+	font-size: 12px;
+	color: #000;
+}
+ul,li,p{
+	@extend %resize;
+	list-style: none;
+}
+h1,h2,h3,h4,h5,h6{
+	@extend %resize;
+	font-weight: bold;
+	font-size: 100%;
+}
+img{
+	border: 0;
+}
+
+$image-path : '../image/';
+
+$images: bg1,bg2,bg3;
+	@for $i from 1 through length($images){
+		.section:nth-child(#{$i}){
+			background-size: cover;
+			background-image: url($image-path + nth($images,$i) + '.jpg');
+		}
+	}

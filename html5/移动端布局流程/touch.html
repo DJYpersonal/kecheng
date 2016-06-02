@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Touch</title>
+	<meta name="viewport" content="width=device-width">
+	<style>
+       .test{
+       	  width: 200px;
+       	  height: 200px;
+       	  border-radius: 50%;
+       	  border: 1px solid #111;
+       	  position: absolute;
+       	  margin: auto;
+       	  right: 0;
+       	  left: 0;
+       }
+       .xiao{
+       	  width: 100px;
+       	  height: 100px;
+       	  background: green;
+       	  margin: 10px;
+       	  float: left;
+       }
+	</style>
+</head>
+<body>
+<!-- <div class="da">
+	<div class="xiao"></div>
+	<div class="xiao"></div>
+	<div class="xiao"></div>
+	<div class="xiao"></div>
+	<div class="xiao"></div>
+	<div class="xiao"></div>
+</div> -->
+	<div class="test">
+		
+	</div>
+</body>
+<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="http://cdn.bootcss.com/touchjs/0.2.14/touch.js"></script>
+<script>
+	$(function(){
+		/*touch.on('.da','touchstart',function(){
+
+		})
+		touch.on('.test','tap',function(){
+			console.log(1);
+		})
+		touch.on('.test','doubletap',function(){
+			console.log(2);
+		})
+		touch.on('.test','hold',function(){
+			console.log(3)
+		})*/
+	    touch.on('.test','touchstart',function(e){
+	    	e.startRotate();
+	    	e.preventDefault();
+	    })
+		touch.on('.test','rotate',function(){
+			console.log(1)
+		})
+	})
+</script>
+
+</html>

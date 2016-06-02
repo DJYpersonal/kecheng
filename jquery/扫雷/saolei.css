@@ -1,0 +1,103 @@
+      body{
+      	 background: url('./image/bg.jpg') no-repeat;
+      }
+      .box{
+      	    position: absolute;
+			margin:auto;
+			left:0;
+			top:0;
+			right:0;
+			bottom:0;
+			width: 450px;
+			height: 520px;
+      }
+       #sence{
+			width: 450px;
+			height: 450px;
+			
+		}
+		.bottom{
+			width: 450px;
+			height: 70px;
+		}
+		.bottom .list{
+			height: 70px;
+			float: left;
+		}
+		.start,.stop{
+			width: 20%;
+			cursor: pointer;
+		}
+		.timer,.leinum{
+			width: 30%;
+			box-sizing:border-box;
+		}
+		.timer span{
+			float: right;
+			height: 70px;
+			color: #fff;
+			font-size: 30px;
+			font-weight: bold;
+			line-height: 70px;
+		}
+		.leinum{
+			padding-right: 20px;
+		}
+		.leinum span{
+			height: 70px;
+			color: #fff;
+			font-size: 40px;
+			font-weight: bold;
+			line-height: 70px;
+			text-align: center;
+			float: right;
+		}
+		.block{
+			width: 45px;
+			height: 45px;
+			float: left;
+			background-image:url('./image/1111.png');
+			text-align: center;
+			line-height: 58px;
+			font-family: "Arial";
+			font-size: 20px;
+		}
+		.biaoji::after{
+			content:url('./image/biaoji.png');
+			color:red;
+		}
+		.tip{
+			font-size: 20px;
+			font-family: 'Arial';
+			font-weight: bold;
+			color:#0A05FF;
+			background-image:url('./image/2222.png');
+		}
+	    .restart{
+	    	width: 188px;
+	    	height: 58px;
+	    	border:1px solid #ccc;
+	    	position: absolute;
+	    	margin:auto;
+	    	left:0;
+	    	right:0;
+	    	top:0;
+	    	bottom:0;
+	    	text-align: center;
+	    	background: #3BFD0A;
+	    	padding:20px 5px;
+	    }
+	    .aa{
+	    	float: left;
+	    	position: absolute;
+	    	left:55px;
+	    	bottom:20px;
+	    	cursor: pointer;
+	    }
+	    .bb{
+	    	float: right;
+	    	position: absolute;
+	        right: 55px;
+	        bottom:20px;
+	        cursor: pointer;
+	    }

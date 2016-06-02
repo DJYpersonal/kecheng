@@ -1,0 +1,32 @@
+@mixin font-generator ( $name,$font-name ){
+	$font-path: '../fonts/';
+	@font-face{
+		font-family: $name;
+		src: 
+		  local( $font-name ),
+		  url( $font-path + $font-name + '.woff') format('woff'),
+		  url( $font-path + $font-name + '.eot') format('eot'),
+		  url( $font-path + $font-name + '.ttf') format('ttf'),
+		  url( $font-path + $font-name + '.svg') format('svg');
+	}
+}
+@include font-generator ( 'myriad normal','myriad-set-pro_text');
+@include font-generator ( 'myriad bold','myriad-set-pro_semibold');
+@include font-generator ( 'myriad thin','myriad-set-pro_thin');
+@include font-generator ( 'myriad extrathin','myriad-set-pro_extrathin');
+
+body{
+	font-size: 70px;
+}
+span{
+	font-family: 'myriad normal';
+}
+p:nth-of-type(1){
+	font-family: 'myriad bold'; 
+}
+p:nth-of-type(2){
+	font-family: 'myriad thin'; 
+}
+p:nth-of-type(3){
+	font-family: 'myriad extrathin'; 
+}

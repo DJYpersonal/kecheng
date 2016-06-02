@@ -1,0 +1,59 @@
+ul,li,ol,dl,dt,dd,h1,h2,h3,h4,h5,h6{
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+
+
+.container{
+	width: 600px;
+	text-align: center;
+	border:1px solid #444;
+	margin:0 auto;
+	padding:10px;
+}
+
+.container .table{
+	width: 100%;
+	border-spacing: 0;
+	padding:10px 0;
+}
+.container .table th,.container .table td{
+	width: 20%;
+	padding:10px 0;
+
+}
+.container .table td{
+	border:none;
+	border-bottom: 1px solid #444;
+}
+.container .box .add{
+	background: #0EEF2D;
+	display: inline-block;
+	width: 60%;
+	padding: 5px 0;
+	color: #fff;
+	cursor: pointer;
+}
+.container .box .remove{
+   background: #ccc;
+   display: inline-block;
+   width: 15%;
+   padding:5px 0;
+   color: #dedede;
+}
+.container .box .activeR{
+	background: #F72D08;
+	color: #fff;
+	cursor: pointer;
+}
+input{
+	border:none;
+	outline: none;
+	border-bottom: 1px solid #333;
+	text-align: center;
+	width: 90%;
+}

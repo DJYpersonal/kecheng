@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+	<style>
+		#canvas{
+			border: 1px solid #111;
+			position: absolute;
+			margin: auto;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			top: 0;
+		}
+		#img{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas" width="600" height="600"></canvas>
+	<img id="img" src="a.png" alt="">
+</body>
+<script>
+
+	var canvas = document.querySelector('#canvas');
+	var ctx = canvas.getContext( '2d' );
+	/*ctx.beginPath();
+	ctx.moveTo(0,0);
+	ctx.lineTo(600,600);
+	ctx.moveTo(600,0);
+	ctx.lineTo(0,600);
+	ctx.stroke();
+	ctx.closePath();
+	
+	//矩形
+	ctx.fillStyle = "#73EF4A";
+	ctx.fillRect (150,30,300,100);
+	ctx.strokeRect (150,470,300,100);*/
+
+
+
+
+
+/*ctx.beginPath();
+var draw = function(){
+	ctx.clearRect(0,0,600,600);
+	ctx.save();
+    ctx.translate(300,300);
+    ctx.lineWidth = 1;
+	ctx.setLineDash( [30,5] );
+	ctx.linDashOffset = offset;
+	ctx.strokeRect(-150.5,-150.5,300,300);
+	ctx.restore();
+}
+draw();
+setTimeout(draw,100);
+ctx.closePath();*/
+
+/*//渐变
+ctx.beginPath();
+ctx.clearRect(0,0,600,600);
+ctx.save();
+ctx.translate(300,300);
+var linear = ctx.createLinearGradient( 0,-150,0,150);
+linear.addColorStop( 0,'blue' );
+linear.addColorStop( 0.2,'green');
+linear.addColorStop( 0.4,'yellow');
+linear.addColorStop( 0.6,'white');
+linear.addColorStop( 0.8,'pink');
+linear.addColorStop(1,'red');
+ctx.fillStyle = linear;
+ctx.fillRect(-150,-150,300,300);
+ctx.restore();
+ctx.closePath();*/
+
+//图案
+window.onload = function(){
+	var img = document.querySelector('#img');
+ctx.beginPath();
+ctx.translate(300,300);
+ctx.save();
+var ptrn = ctx.createPattern(img,'repeat');
+    ctx.fillStyle = ptrn;
+    ctx.fillRect(0,0,150,150);
+
+ctx.restore();
+ctx.closePath();
+}
+
+
+
+
+</script>
+</html>

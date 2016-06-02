@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>学生管理系统</title>
+	<style>
+		.box{
+			width: 600px;
+			border:1px solid #444;
+			padding:10px;
+			text-align: center;
+			margin:0 auto;
+		}
+		.box table{
+			width: 100%;
+			margin:0 auto;
+			border-spacing: 0;
+		}
+		
+		.box td,.box th{
+			line-height: 30px;
+			border-spacing: 0;
+			width: 98px;
+			border-bottom: 1px solid #444;
+		}
+		.box td,input{
+			font-size: 15px;
+			color:#111;
+		}
+		.box .add{
+			padding:5px 0;
+			margin:10px;
+			background:#EF992F;
+			display: inline-block;
+			cursor: pointer;
+			width: 70%;
+			color: #fff;
+		}
+		.box .remove{
+			cursor: pointer;
+			color: #fff;
+			padding:5px 0;
+			background: #c81623;
+			margin:10px;
+			display: inline-block;
+			width: 10%;
+		}
+		.box table .edit{
+			cursor: pointer;
+			color: #12e823;
+		}
+		input.text{
+			outline: none;
+			width: 100%;
+			border:none;
+			border-bottom:1px solid #999;
+			text-align: center;
+		}
+		.box .tips{
+
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="tips">
+			
+		</div>
+		<h1>学生管理系统</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th data-role="id">学号</th>
+					<th data-role="name">姓名</th>
+					<th data-role="sex">性别</th>
+					<th data-role="age">年龄</th>
+					<th data-role="jiguan">籍贯</th>
+					<th><input class="togglecheck" type="checkbox"></th>
+				</tr>
+
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
+		<div class="add">新增</div>
+		<div class="remove">删除</div>
+	</div>
+</body>
+<script>
+	var students;
+	if(localStorage.students){
+		students=JSON.parse(localStorage.students);
+	}else{
+		students=[
+		{id:1001,name:'邓佳艳',sex:'女',age:'20',jiguan:'山西'},
+		{id:1002,name:'郭雪辉',sex:'男',age:'20',jiguan:'山西'},
+		{id:1003,name:'闫俊涵',sex:'男',age:'20',jiguan:'山西'},
+		{id:1004,name:'董小敏',sex:'女',age:'20',jiguan:'山西'},
+		{id:1005,name:'胡鑫鑫',sex:'女',age:'20',jiguan:'山西'},
+		{id:1006,name:'屈晓宇',sex:'男',age:'20',jiguan:'山西'}
+		];
+		localStorage.setItem('students',JSON.stringify(students));
+	}
+	
+	var tbody=document.querySelector('.table tbody');
+	var remove=document.querySelector('.remove');
+	var togglecheck=document.querySelector('.togglecheck');
+	togglecheck.onclick=function(e){
+		var cks = tbody.querySelectorAll('input[type="checkbox"]');
+		for(var i= 0;i<cks.length;i++){
+			var el = cks[i];
+			if(togglecheck.checked){
+				el.checked=true;
+			}else{
+				el.checked=false;
+			}
+		}
+		
+	}
+
+	remove.onclick=function(e){
+		var cks = tbody.querySelectorAll('input[type="checkbox"]');
+		for(var i=0,el;i<cks.length;i++){
+			el = cks[i];
+			if(el.checked){
+				tbody.removeChild(el.parentElement.parentElement);
+				
+				deletestudents(Number(el.value));
+				
+			}
+			togglecheck.checked=false; 
+			
+		}
+	}
+	var xuanranshuju=function(){
+		tbody.innerHTML="";
+		for( var i in students){
+			var _d = students[i];
+			var news=document.createElement('tr');
+			news.setAttribute("data-id",_d.id);
+			news.innerHTML='<td>'+_d.id+'</td><td data-role="name">'+_d.name+'</td><td data-role="sex">'+_d.sex+'</td><td data-role="age">'+_d.age+'</td><td data-role="jiguan">'+_d.jiguan+'</td><td><input class="ck" type="checkbox" value="'+_d.id+'"></td>';
+			tbody.appendChild(news)
+		}
+	}
+	xuanranshuju();
+	var deletestudents=function(id){
+		var _s=[];
+		for(var i in students){
+			// var k=students[i];
+			if(students[i].id!==id){
+				_s.push(students[i]);
+			}
+			
+		}
+		students=_s;
+		localStorage.setItem('students',JSON.stringify(students));
+	}
+
+	
+//单击删除、编辑
+tbody.onclick=function(e){
+	var el=e.target;
+	if(el.nodeName === 'TD'){
+		if(tbody.querySelector('.editing')){
+			toggleEdit(tbody.querySelector('.editing'))
+		}
+		toggleEdit(el.parentElement)
+	}else if(el.classList.contains('ck')){
+		var cks = tbody.querySelectorAll('input[type="checkbox"]');
+		
+		for(var i=0,el,j=0;i<cks.length;i++){
+			el = cks[i];
+			if(el.checked){
+				j+=1
+			}
+		}
+		if(j===students.length){
+			togglecheck.checked=true;
+		}else{
+			togglecheck.checked=false;
+		}
+	}
+}
+
+//点击新增，增加一条信息
+var add=document.querySelector('.add');
+add.onclick=function(e){
+	var xuehao;
+	if(students.length){
+		xuehao=students[students.length-1].id+1;
+	}else{
+		xuehao=1001;
+	}
+	var _d={id:xuehao,name:'',sex:'',age:'',jiguan:''};
+	students.push(_d)
+	localStorage.setItem('students',JSON.stringify(students));
+
+	var tr= document.createElement('tr');
+	tr.setAttribute('data-id',xuehao);
+	tr.innerHTML='<td>'+_d.id+'</td><td data-role="name">'+_d.name+'</td><td data-role="sex">'+_d.sex+'</td><td data-role="age">'+_d.age+'</td><td data-role="jiguan">'+_d.jiguan+'</td><td><input class="ck" type="checkbox" value="'+_d.id+'"></td>';
+	tbody.appendChild(tr);
+	toggleEdit(tr);
+}
+
+//判断是否有editing这个类，如果有，让它的内容等于td标签下的input标签里面的内容.并将edit的内容稍作改变，以便区分，再移除editing这个类，否则只能点击一次
+//如果没有，给其添加editing这个类，将其内容转换为可编辑状态（input标签），定义一个变量用来保存原来的tr的内容
+var toggleEdit=function(tr){
+	var els = tr.querySelectorAll('td[data-role]');
+	if(tr.classList.contains('editing')){
+		for(var i=0,el,tmp;i<els.length;i++){
+			el = els[i];
+			tmp = el.querySelector('.text').value;
+			el.innerHTML=tmp;
+
+		}
+		tr.classList.remove('editing');
+		tips.innerHTML='保存成功';
+	}else {
+		for(var i=0,el,tmp;i<els.length;i++){
+			
+			el = els[i];
+			tmp = el.innerHTML;
+			el.innerHTML='<input class="text" type="text" value="'+tmp+'">';
+		}
+		tr.classList.add('editing');
+		
+	}
+}
+
+
+//实时保存数据
+//xuehao:要在哪个学号输入;key:在哪个属性下输入;value:要输入的内容
+var baocun=function(xuehao,key,value){
+	xuehao=parseInt(xuehao);
+	for(var i=0;i<students.length;i++){
+		if(xuehao===students[i].id){
+			students[i][key]=value;
+			localStorage.setItem('students',JSON.stringify(students)); 
+		}
+	}
+
+}
+
+var tips=document.querySelector('.tips');
+var timeId;
+tbody.onkeyup=function(e){
+	var 
+	el = e.target,
+	xuehao = el.parentElement.parentElement.getAttribute('data-id'),
+	key = el.parentElement.getAttribute('data-role'),
+	value = el.value;
+	
+	clearTimeout(timeId);
+	timeId=setTimeout(function(){
+		baocun(xuehao,key,value);
+		
+	},1000)
+	tips.innerHTML='正在保存......';
+}	  
+
+var thead = document.querySelector('.table thead');
+
+thead.onclick=function(e){
+	var el = e.target;
+	if(el.nodeName === 'TH'){
+		var sortKey = el.getAttribute('data-role');
+		var state = (el.getAttribute('flag')==='true')?true:false;
+		el.setAttribute('flag',!state);
+
+		students = students.sort(function(x,y){
+			return state ? (x[sortKey] < y[sortKey]) : (x[sortKey] > y[sortKey]);
+			
+		})
+		xuanranshuju()
+	}
+	
+	
+}
+
+
+
+
+
+
+
+</script>
+</html>

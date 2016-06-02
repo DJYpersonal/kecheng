@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+      div{
+      	padding:30px;
+      	border:1px solid #333;
+      }
+	</style>
+</head>
+<body>
+	<div class="san">
+	  三
+		<div class="er">
+		二
+			<div class="yi">
+				一
+			</div>
+		</div>
+	</div>
+	<input type="text">
+</body>
+<script>
+	var san = document.querySelector('.san');
+	var er = document.querySelector('.er');
+	var yi = document.querySelector('.yi');
+    san.onclick=function(e){
+        console.dir(e)
+    }
+    /*var clickHandler = function(){
+    	this.style.background = '#349977';
+    	this.removeEventListener('click',clickHandler)
+    }
+    yi.addEventListener('click',clickHandler)*/
+	/*san.addEventListener('click',function( e ){
+		console.log('san')
+	},true);
+
+	yi.addEventListener('click',function( e ){
+		console.log('yi')
+	},true)
+
+    er.addEventListener('click',function( e ){
+    	console.log('er')
+    },true)*/
+
+    /*//三击事件
+    var threeclick = new Event('threeclick');
+    yi.addEventListener('threeclick',function(){
+          console.log('触发了');
+          
+    })
+    yi.addEventListener('click',(function(){
+    	var cishu = 0;
+          return function(){
+          	cishu += 1;
+          	if(cishu === 3){
+          		yi.dispatchEvent(threeclick)
+          	}
+           setTimeout(function(){
+           	  cishu = 0;
+           },500)
+          }
+    })())*/
+/*//阻止事件冒泡
+yi.addEventListener('click',function(e){
+	console.log(1)
+    e.stopPropagation()
+})
+er.addEventListener('click',function(e){
+	console.log(2)
+})
+san.addEventListener('click',function(e){
+	console.log(3)
+})*/
+
+//阻止事件的默认行为
+/*document.addEventListener('keydown',function(e){
+	e.preventDefault();
+})
+document.addEventListener('mousedown',function(e ){
+	e.preventDefault()
+})
+
+document.querySelector('input').addEventListener('click',function(e){
+	console.log(1)
+    e.stopPropagation()
+})*/
+   
+/*//长按事件
+
+var onlongpress = function(el,fn){
+	var longpress = new Event('longpress');
+	el.addEventListener('longpress',function(e){
+		fn.call(el,e)
+	})
+	var timeId;
+	el.addEventListener('mousedown',function(){
+		timeId = setTimeout(function(){
+			el.dispatchEvent(longpress)
+		},750)
+	})
+	document.addEventListener('mouseup',function(){
+		clearTimeout(timeId)
+	})
+}
+onlongpress(san,function(e){
+   console.log(1)
+})
+onlongpress(er,function(e){
+   console.log(2)
+})*/
+
+Array.prototype.myForEach = function( fn ){
+	for(var i=0;i<this.length;i++){
+		fn.call(this,this[i]);
+	}
+};
+var arr = [1,2,3,4,5];
+arr.myForEach(function(v){
+   console.log(this,v)
+})
+
+</script>
+</html>

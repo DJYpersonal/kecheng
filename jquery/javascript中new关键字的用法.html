@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>new关键字的用法</title>
+</head>
+<body>
+	
+</body>
+<script>
+//javascript中构建一个对象的四种方式
+   // 1. 字面量的形式
+   var obj = {
+      "a":12,
+      "b":234,
+      "我是中国人":'aaa'
+   }
+   // 以字面量的形式创建出的对象
+   // 原型就是 Object.prototype 这个对象
+
+   // 2. 构造函数
+   var obj2 = new Object();
+   obj2.a = 12;
+
+   // 3. 利用 Object.create() 方法
+   // 从一个已有的对象开始构建新的对象
+   var mao = {
+   	zhuazi:4,
+   	erduo:1,
+   	nao:function(){
+   		console.log('nao nao nao');
+   	}
+   }
+   var bosimao = Object.create(mao);
+   bosimao.dianjiaojian = function(){
+   	console.log(1);
+   }
+   console.dir(bosimao);
+
+   // 4. 用 new 关键字来构造对象
+   var mao = function(){
+   	 this.zhuazi = 4;
+   	 this.erduo = 1;
+   }
+   mao.prototype.nao = function(){
+   	console.log('nao')
+   }
+   // 每一个函数对象身上，都有一个其他对象不具备的属性叫做 `prototype`
+   var bosimao = new mao();
+   // 1. 构建一个空对象 {}
+   // 2. mao.call({})把mao那个函数作为这个空对象的临时方法调用了一次
+   // {zhuazi:4,erduo:1}
+   // 3. 把mao那个函数对象身上的prototype那个属性拿来，作为自己原型链中的一条
+   // 4. 返回最终对象
+</script>
+</html>

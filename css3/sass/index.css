@@ -1,0 +1,72 @@
+body, ul, li, a {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container > li {
+  float: left;
+  padding: 20px;
+  border: 1px solid #333;
+  min-height: 300px;
+  min-width: 50px;
+}
+
+.container > li li a {
+  font-size: 20px;
+  color: #111;
+}
+
+.container > li li:hover {
+  background: #111;
+}
+
+.container::after {
+  content: '';
+  clear: both;
+  display: table;
+}
+
+li.selectors {
+  background: #FFDD3A;
+}
+
+li.selectors li a:hover {
+  color: #FFDD3A;
+}
+
+li.css {
+  background: #FFA03C;
+}
+
+li.css li a:hover {
+  color: #FFA03C;
+}
+
+li.mainpulation {
+  background: #E45B5B;
+}
+
+li.mainpulation li a:hover {
+  color: #E45B5B;
+}
+
+li.traversing {
+  background: #E678DC;
+}
+
+li.traversing li a:hover {
+  color: #E678DC;
+}
+
+li.events {
+  background: #6B96D5;
+}
+
+li.events li a:hover {
+  color: #6B96D5;
+}
